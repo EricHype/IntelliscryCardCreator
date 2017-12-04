@@ -49,6 +49,7 @@ public class CardSetUtil {
 
             // Wrapping our person data.
             CardSetWrapper wrapper = new CardSetWrapper();
+            wrapper.setSetName(model.getSetName());
             wrapper.setCardsInSet(model.getCards());
 
             // Marshalling and saving XML to the file.
