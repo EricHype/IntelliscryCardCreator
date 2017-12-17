@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 public class CardSetUtil {
@@ -40,7 +41,7 @@ public class CardSetUtil {
         return null;
     }
 
-    public static void saveCardSetDataToFile(CardSetModel model, File file){
+    public static void saveCardSetDataToFile(List<CardSetModel> model, File file){
         try {
             JAXBContext context = JAXBContext
                     .newInstance(CardSetWrapper.class);
@@ -49,8 +50,8 @@ public class CardSetUtil {
 
             // Wrapping our person data.
             CardSetWrapper wrapper = new CardSetWrapper();
-            wrapper.setSetName(model.getSetName());
-            wrapper.setCardsInSet(model.getCards());
+            wrapper.setSetName(model.get(0).getSetName());
+            wrapper.setCardsInSet(model.get(0).getCards());
 
             // Marshalling and saving XML to the file.
             m.marshal(wrapper, file);
@@ -58,11 +59,11 @@ public class CardSetUtil {
             // Save the file path to the registry.
             setPersonFilePath(file);
         } catch (Exception e) { // catches ANY exception
+            System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not save data");
             alert.setContentText("Could not save data to file:\n" + file.getPath());
-
             alert.showAndWait();
         }
     }

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardSetUtilTests {
 
@@ -17,7 +19,9 @@ public class CardSetUtilTests {
             File file = new File("." + File.separator + "testFiles" + File.separator + "testFile.xml");
             CardSetModel cardSet = new CardSetModel("Test set");
 
-            CardSetUtil.saveCardSetDataToFile(cardSet, file);
+            List<CardSetModel> models = new ArrayList<>();
+            models.add(cardSet);
+            CardSetUtil.saveCardSetDataToFile(models, file);
 
             Assertions.assertTrue(file.exists());
 

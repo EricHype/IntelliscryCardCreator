@@ -1,6 +1,8 @@
 package intelliscry.wrapper;
 
 import intelliscry.model.CardDefinitionModel;
+import intelliscry.model.CardSetModel;
+import javafx.collections.ObservableList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -30,4 +32,11 @@ public class CardSetWrapper {
     public void setSetName(String setName) {
         this.setName = setName;
     }
+
+    public CardSetModel getModelData(){
+        CardSetModel model = new CardSetModel(setName);
+        model.getCards().addAll(cardsInSet);
+        return model;
+    }
+
 }
