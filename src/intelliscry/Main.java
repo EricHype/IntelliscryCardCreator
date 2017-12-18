@@ -1,6 +1,7 @@
 package intelliscry;
 
 import intelliscry.controller.RootLayoutController;
+import intelliscry.controller.SetListLayoutController;
 import intelliscry.model.CardDefinitionModel;
 import intelliscry.model.CardSetModel;
 import intelliscry.wrapper.CardSetWrapper;
@@ -9,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -30,6 +32,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         initRootLayout();
+        showSetListLayout();
     }
 
 
@@ -58,6 +61,25 @@ public class Main extends Application {
         File file = getPersonFilePath();
         if (file != null) {
             loadCardSetDataFromFile(file);
+        }
+    }
+
+    public void showSetListLayout(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/SetListLayout.fxml"));
+            AnchorPane setListLayout = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(setListLayout);
+
+            // Give the controller access to the main app.
+            SetListLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

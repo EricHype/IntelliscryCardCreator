@@ -35,7 +35,9 @@ public class CardSetWrapper {
 
     public CardSetModel getModelData(){
         CardSetModel model = new CardSetModel(setName);
-        model.getCards().addAll(cardsInSet);
+        if(cardsInSet != null) {
+            model.getCards().addAll(cardsInSet);
+        }
         return model;
     }
 

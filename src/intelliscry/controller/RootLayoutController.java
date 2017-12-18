@@ -1,12 +1,15 @@
 package intelliscry.controller;
 
 import intelliscry.Main;
+import intelliscry.model.CardSetModel;
 import intelliscry.util.CardSetUtil;
 import intelliscry.wrapper.CardSetWrapper;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Optional;
 
 public class RootLayoutController {
 
@@ -27,8 +30,20 @@ public class RootLayoutController {
      */
     @FXML
     private void handleNew() {
+
+        TextInputDialog dialog = new TextInputDialog("New Set");
+        dialog.setTitle("New Set Name");
+        dialog.setHeaderText("Set Name");
+        dialog.setContentText("Please enter a name for the set:");
+        Optional<String> result = dialog.showAndWait();
+        if (!result.isPresent()){
+            return;
+        }
+
         mainApp.getCardSetList().clear();
+        mainApp.getCardSetList().addAll(new CardSetModel(result.get()));
         mainApp.setCardSetFilePath(null);
+
     }
 
     /**
